@@ -1,18 +1,18 @@
 pipeline {
     agent any
 
-    // Define tools, assuming Maven and JDK are already configured in Jenkins
+    // Define tools,
     tools {
-        maven 'Maven'  // The name of the Maven installation in Jenkins configuration
-        jdk 'JDK'      // The name of the JDK installation in Jenkins configuration
+        maven 'MAVEN3'
+        jdk 'OracleJDK8'
     }
 
     // Define stages
     stages {
-        stage('Checkout') {
+        stage('fetching') {
             steps {
-                // Clone the Git repository and checkout the specific branch
-                git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
+                // Clone the Git repository
+                git branch: 'master', url: 'https://github.com/your-username/your-repo.git'
             }
         }
 
@@ -21,6 +21,13 @@ pipeline {
                 // Run Maven build
                 sh 'mvn clean install -DskipTests' // Skipping tests here to run them in a separate stage
             }
+
+	        post {
+	           success {
+	              echo 'Now Archiving it...'
+	              archiveArtifacts artifacts: '**/target/*.war'
+	           }
+	        }
         }
 
         stage('Test') {
@@ -41,7 +48,7 @@ pipeline {
         success {
             // Steps to run if the pipeline succeeds
             steps {
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
 
                 // Additional command to handle post-success actions
                 echo 'Build and Test Stages completed successfully. Artifacts archived.'
