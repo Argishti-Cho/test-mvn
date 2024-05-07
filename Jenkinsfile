@@ -37,21 +37,21 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            // Steps to run if the pipeline succeeds
-            steps {
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+    // post {
+    //     success {
+    //         // Steps to run if the pipeline succeeds
+    //         steps {
+    //             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
 
-                // Additional command to handle post-success actions
-                echo 'Build and Test Stages completed successfully. Artifacts archived.'
-            }
-        }
-        failure {
-            // Steps to run if the pipeline fails
-            steps {
-                echo 'The build or test failed. Check the console output for details.'
-            }
-        }
-    }
+    //             // Additional command to handle post-success actions
+    //             echo 'Build and Test Stages completed successfully. Artifacts archived.'
+    //         }
+    //     }
+    //     failure {
+    //         // Steps to run if the pipeline fails
+    //         steps {
+    //             echo 'The build or test failed. Check the console output for details.'
+    //         }
+    //     }
+    // }
 }
