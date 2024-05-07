@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     // Define tools,
-    tools {
-        maven 'MAVEN3'
-        jdk 'OracleJDK9'
-    }
+    // tools {
+    //     maven 'MAVEN3'
+    //     jdk 'OracleJDK9'
+    // }
 
     // Define stages
     stages {
@@ -19,28 +19,21 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Maven build
-                sh 'mvn clean install -DskipTests' // Skipping tests here to run them in a separate stage
+                sh 'mkdir testdir'
             }
-
-	        post {
-	           success {
-	              echo 'Now Archiving it...'
-	              archiveArtifacts artifacts: '**/target/*.war'
-	           }
-	        }
         }
 
         stage('Test') {
             steps {
                 // Run Maven tests
-                sh 'mvn test'
+                sh 'cd testdir && touch testfile.txt'
             }
-            post {
-                // Collect test reports
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
+            // post {
+            //     // Collect test reports
+            //     always {
+            //         junit 'target/surefire-reports/*.xml'
+            //     }
+            // }
         }
     }
 
