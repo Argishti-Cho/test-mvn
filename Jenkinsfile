@@ -1,18 +1,18 @@
 pipeline {
     agent any
 
-    // Define tools
+    // Define tools, assuming Maven and JDK are already configured in Jenkins
     tools {
-        maven 'Maven'  
-        jdk 'JDK'
+        maven 'Maven'  // The name of the Maven installation in Jenkins configuration
+        jdk 'JDK'      // The name of the JDK installation in Jenkins configuration
     }
 
     // Define stages
     stages {
         stage('Checkout') {
             steps {
-                // Clone the Git repository
-                git 'https://github.com/your-username/your-repo.git'
+                // Clone the Git repository and checkout the specific branch
+                git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
             }
         }
 
