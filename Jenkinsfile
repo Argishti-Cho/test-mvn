@@ -12,7 +12,7 @@ pipeline {
         stage('fetching') {
             steps {
                 // Clone the Git repository
-                git branch: 'master', url: 'https://github.com/your-username/your-repo.git'
+                git branch: 'master', url: 'https://github.com/Argishti-Cho/test-mvn.git'
             }
         }
 
