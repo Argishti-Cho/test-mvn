@@ -19,7 +19,15 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Maven build
-                sh 'mkdir testdir'
+                sh '''
+                #!/bin/bash
+                DIR="testdir"
+                if [ -d $DIR ]; then
+                    echo "$DIR exists"
+                else
+                    mkdir -p $DIR
+                fi
+                '''
             }
         }
 
